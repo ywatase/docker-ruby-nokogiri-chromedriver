@@ -40,12 +40,12 @@ dump_nokogiri () {
 dump_package () {
     if [ "$os" = "alpine" ] ; then
         # phantomjs: openssl curl
-        echo RUN apk add --no-cache build-base libxml2-dev libxslt-dev openssl curl
+        echo RUN apk add --no-cache build-base libxml2-dev libxslt-dev unzip openssl curl
     else
         # phantomjs: libssl-dev libfontconfig1
         cat <<'END'
 RUN apt-get update \
-    && apt-get install -y ruby-dev zlib1g-dev liblzma-dev build-essential git libfontconfig1 libssl-dev \
+    && apt-get install -y ruby-dev zlib1g-dev liblzma-dev build-essential git unzip libfontconfig1 libssl-dev \
     && rm -rf /var/lib/apt/lists/*
 END
     fi
@@ -67,24 +67,24 @@ dump_phantomjs() {
 # Google Chrome
 #============================================
 ARG CHROME_VERSION="google-chrome-stable"
-RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
-  && echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list \
-  && apt-get update -qqy \
-  && apt-get -qqy install \
-    \${CHROME_VERSION:-google-chrome-stable} \
-  && rm /etc/apt/sources.list.d/google-chrome.list \
+RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \\
+  && echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list \\
+  && apt-get update -qqy \\
+  && apt-get -qqy install \\
+    \${CHROME_VERSION:-google-chrome-stable} \\
+  && rm /etc/apt/sources.list.d/google-chrome.list \\
   && rm -rf /var/lib/apt/lists/* /var/cache/apt/*
 
 #==================
 # Chrome webdriver
 #==================
 ARG CHROME_DRIVER_VERSION=${CHROME_DRIVER_VERSION}
-RUN wget --no-verbose -O /tmp/chromedriver_linux64.zip https://chromedriver.storage.googleapis.com/\$CHROME_DRIVER_VERSION/chromedriver_linux64.zip \
-  && rm -rf /opt/selenium/chromedriver \
-  && unzip /tmp/chromedriver_linux64.zip -d /opt/selenium \
-  && rm /tmp/chromedriver_linux64.zip \
-  && mv /opt/selenium/chromedriver /opt/selenium/chromedriver-\$CHROME_DRIVER_VERSION \
-  && chmod 755 /opt/selenium/chromedriver-\$CHROME_DRIVER_VERSION \
+RUN wget --no-verbose -O /tmp/chromedriver_linux64.zip https://chromedriver.storage.googleapis.com/\$CHROME_DRIVER_VERSION/chromedriver_linux64.zip \\
+  && rm -rf /opt/selenium/chromedriver \\
+  && unzip /tmp/chromedriver_linux64.zip -d /opt/selenium \\
+  && rm /tmp/chromedriver_linux64.zip \\
+  && mv /opt/selenium/chromedriver /opt/selenium/chromedriver-\$CHROME_DRIVER_VERSION \\
+  && chmod 755 /opt/selenium/chromedriver-\$CHROME_DRIVER_VERSION \\
   && ln -fs /opt/selenium/chromedriver-\$CHROME_DRIVER_VERSION /usr/bin/chromedriver
 END
 }
