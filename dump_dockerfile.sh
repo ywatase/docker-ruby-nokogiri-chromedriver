@@ -3,7 +3,7 @@ CHROME_DRIVER_VERSION=2.29
 CHROME_VERSION="google-chrome-stable"
 
 ruby_versions="2.1 2.2 2.3 2.4 2 latest"
-additional_os="alpine"
+additional_os=
 
 main() {
     [ -d Dockerfiles ] || mkdir Dockerfiles
@@ -48,6 +48,7 @@ RUN apt-get update \
     && apt-get install -y ruby-dev zlib1g-dev liblzma-dev build-essential git unzip libfontconfig1 libssl-dev \
         libx11-xcb1 libxcomposite1 libxcursor1 libxdamage1 libxi6 \
         libxtst6 libcups2 libxss1 libxrandr2 libasound2 libatk1.0-0 libgtk-3-0 \
+        xvfb fonts-ipafont-gothic fonts-ipafont-mincho \
     && rm -rf /var/lib/apt/lists/*
 END
     fi
