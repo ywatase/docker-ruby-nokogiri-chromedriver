@@ -1,8 +1,8 @@
 #!/bin/sh
-CHROME_DRIVER_VERSION=2.29
+CHROME_DRIVER_VERSION=2.37
 CHROME_VERSION="google-chrome-stable"
 
-ruby_versions="2.1 2.2 2.3 2.4 2 latest"
+ruby_versions="2.1 2.2 2.3 2.4 2.5 2 latest"
 additional_os=
 
 main() {
@@ -59,9 +59,9 @@ dump_phantomjs() {
 # Google Chrome
 #============================================
 # can specify versions by CHROME_VERSION;
-#  e.g. google-chrome-stable=53.0.2785.101-1
-#       google-chrome-beta=53.0.2785.92-1
-#       google-chrome-unstable=54.0.2840.14-1
+#  e.g. google-chrome-stable
+#       google-chrome-beta
+#       google-chrome-unstable
 #       latest (equivalent to google-chrome-stable)
 #       google-chrome-beta  (pull latest beta)
 #============================================
@@ -69,7 +69,7 @@ dump_phantomjs() {
 #============================================
 # Google Chrome
 #============================================
-ARG CHROME_VERSION="google-chrome-beta"
+ARG CHROME_VERSION="google-chrome-stable"
 RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \\
   && echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list \\
   && apt-get update -qqy \\
