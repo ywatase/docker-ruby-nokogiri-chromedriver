@@ -1,8 +1,8 @@
 #!/bin/sh
-CHROME_DRIVER_VERSION=2.37
+CHROME_DRIVER_VERSION=88.0.4324.27
 CHROME_VERSION="google-chrome-stable"
 
-ruby_versions="2.1 2.2 2.3 2.4 2.5 2 latest"
+ruby_versions="2.5 2.6 2.7 2 latest"
 additional_os=
 
 main() {
